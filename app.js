@@ -1,20 +1,18 @@
 const env = process.env;
 
 var express = require('express');
+var logger = require('morgan');
+var bodyParser = require('body-parser');
+
 var app = express();
 
-app.get('/', function (req, res) {
-  res.send('Hello World!');
-});
+var routeApi = require('./routes/api');
 
 app.get('/health', function(req, res) {
   res.status(200).send();
 });
 
-app.get('/htlaeh', function(req, res) {
-  res.status(200).send();
-});
-
+app.use('/api', routeApi);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -46,6 +44,5 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
 
 module.exports = app;
